@@ -66,7 +66,7 @@ export default function Home() {
 
       {/* ── Sticky Frosted Nav ─────────────────────────────────────────────── */}
       <nav
-        className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 py-4 max-w-7xl mx-auto w-full transition-all duration-300 ${
+        className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-4 sm:px-8 py-4 max-w-7xl mx-auto w-full transition-all duration-300 ${
           scrolled
             ? "bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm py-3"
             : "bg-transparent"
@@ -109,12 +109,12 @@ export default function Home() {
       </nav>
 
       {/* ── Hero Section ────────────────────────────────────────────────────── */}
-      <main className="max-w-6xl mx-auto px-6 pt-40 pb-32 text-center relative z-10">
+      <main className="max-w-6xl mx-auto px-6 pt-32 md:pt-40 pb-20 md:pb-32 text-center relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="font-brand text-6xl md:text-8xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.05]"
+          className="font-brand text-5xl md:text-8xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.05]"
         >
           Stop learning alone.<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
@@ -143,9 +143,12 @@ export default function Home() {
           >
             Apply Now
           </a>
-          <button className="font-brand tracking-wide w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-10 py-4 rounded-md text-base font-semibold hover:bg-slate-50 transition-all shadow-sm">
+          <a
+            href="#how-it-works"
+            className="font-brand tracking-wide w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-10 py-4 rounded-md text-base font-semibold hover:bg-slate-50 transition-all shadow-sm text-center"
+          >
             Read the Working Model
-          </button>
+          </a>
         </motion.div>
 
         {/* Mockup Container */}
@@ -173,7 +176,7 @@ export default function Home() {
           />
 
           {/* macOS Desktop */}
-          <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-200 ring-1 ring-black/5 bg-white">
+          <div className="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-200 ring-1 ring-black/5 bg-white">
             <div className="absolute inset-0 mac-wallpaper"></div>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.4)_0%,_transparent_60%)]"></div>
 
@@ -241,14 +244,14 @@ export default function Home() {
                         <span className="font-brand text-white font-bold text-sm">K_</span>
                       </div>
                       <div className="bg-white/5 rounded-lg rounded-tl-none p-4 border border-white/10 text-sm text-gray-300 font-mono leading-relaxed">
-                        <span className="font-bold text-white font-sans">SYSTEM:</span> Team assembly complete. Connecting 3 absolute beginners with 2 intermediate developers.
+                        <span className="font-bold text-white font-sans">Kairos AI:</span> Your team is ready! I've matched 3 beginners with 2 experienced developers.
                         <br /><br />
                         <motion.span
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 2.2 }}
                         >
-                          <span className="text-gray-500">&gt; Initiating Day 1 protocols...</span>
+                          <span className="text-gray-500">&gt; Setting up your first day...</span>
                         </motion.span>
                         <br />
                         <motion.span
@@ -256,9 +259,9 @@ export default function Home() {
                           animate={{ opacity: 1 }}
                           transition={{ delay: 3.0 }}
                         >
-                          &gt; Task assigned.{" "}
+                          &gt; Your first task is ready.{" "}
                           <span className="text-blue-400 font-medium cursor-pointer hover:text-blue-300 underline decoration-blue-400/50 underline-offset-2 transition-colors">
-                            Execute Workspace →
+                            Open Workspace →
                           </span>
                           <motion.span
                             animate={{ opacity: [1, 0, 1] }}
@@ -279,7 +282,7 @@ export default function Home() {
                         <svg className="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
                       </div>
                       <div className="bg-transparent border-l-2 border-white/10 pl-4 py-1.5 text-sm text-gray-400 font-mono">
-                        <span className="font-medium text-white font-sans">USER_01</span> committed code to daily task.
+                        <span className="font-medium text-white font-sans">Alex</span> pushed code for the login page.
                       </div>
                     </motion.div>
                   </div>
@@ -301,13 +304,13 @@ export default function Home() {
       </main>
 
       {/* ── How It Works ────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="bg-[#FDFBF7] py-32 border-t border-slate-200">
+      <section id="how-it-works" className="bg-[#FDFBF7] py-20 md:py-32 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7 }}
-            className="text-center max-w-3xl mx-auto mb-32"
+            className="text-center max-w-3xl mx-auto mb-20 md:mb-32"
           >
-            <h2 className="font-editorial text-5xl md:text-7xl text-[#1A1A1A] mb-6 tracking-tight leading-tight">
+            <h2 className="font-editorial text-4xl md:text-7xl text-[#1A1A1A] mb-6 tracking-tight leading-tight">
               Designed for the way <br /><span className="italic text-slate-500">you</span> build.
             </h2>
             <p className="text-lg text-slate-600">See exactly how a Guild pod operates day-to-day.</p>
@@ -339,15 +342,15 @@ export default function Home() {
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md relative z-10 translate-y-4">
                   <div className="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
                     <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center font-bold text-white text-xs font-mono">K_</div>
-                    <div className="text-white font-medium">Kairos AI <span className="text-slate-400 text-sm font-normal">System Update</span></div>
+                    <div className="text-white font-medium">Kairos AI <span className="text-slate-400 text-sm font-normal">Team Update</span></div>
                   </div>
                   <p className="text-slate-300 font-mono text-sm leading-relaxed mb-4">
-                    <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }}>&gt; Analyzing pod velocity... </motion.span><br />
-                    <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.5 }}>&gt; USER_01 is blocked on API integration. </motion.span><br />
-                    <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 2.5 }}>&gt; Adjusting today's sprint requirements.</motion.span>
+                    <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }}>&gt; Checking team progress... </motion.span><br />
+                    <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.5 }}>&gt; Alex needs help with the login page. </motion.span><br />
+                    <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 2.5 }}>&gt; Updating today's team goals.</motion.span>
                   </p>
                   <div className="bg-indigo-500/20 border border-indigo-500/30 text-indigo-200 px-4 py-3 rounded-lg text-sm font-medium">
-                    Execute Daily Workspace &rarr;
+                    Open Team Workspace &rarr;
                   </div>
                 </div>
               </motion.div>
@@ -473,7 +476,7 @@ export default function Home() {
                 Build in public. <br /><span className="italic">Ship with proof.</span>
               </h3>
               <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                Your daily commits aren't just for practice; they build your public track record. Over 24 months, you create an undeniable portfolio of shipped products, proving your consistency to co-founders and startups.
+                Your daily commits aren't just for practice; they build your public track record. Over 3 months, you create an undeniable portfolio of shipped products, proving your consistency to co-founders and startups.
               </p>
             </motion.div>
           </div>
@@ -481,12 +484,12 @@ export default function Home() {
       </section>
 
       {/* ── Why Guild Bento Grid ─────────────────────────────────────────────── */}
-      <section id="why-guild" className="max-w-7xl mx-auto px-6 py-32 relative z-10">
+      <section id="why-guild" className="max-w-7xl mx-auto px-6 py-20 md:py-32 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <h2 className="font-brand text-5xl font-bold tracking-tight text-slate-900 mb-6">
+          <h2 className="font-brand text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
             Designed for high-output builders.
           </h2>
         </motion.div>
@@ -502,9 +505,9 @@ export default function Home() {
             {/* Shimmer sweep */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full" style={{ transitionProperty: "opacity, transform", transitionDuration: "700ms" }}></div>
             <div className="relative z-10">
-              <h3 className="font-brand text-3xl font-bold text-slate-900 mb-4">Drafted, not dropped in.</h3>
-              <p className="text-slate-600 text-lg leading-relaxed max-w-lg">
-                No browsing. No decision fatigue. We analyze your goal and draft you into a vetted pod of 5-10 peers on your exact trajectory.
+              <h3 className="font-brand text-2xl md:text-3xl font-bold text-slate-900 mb-4">Curated Pods, Instant Momentum.</h3>
+              <p className="text-slate-600 text-base md:text-lg leading-relaxed max-w-lg">
+                Skip the search and the decision fatigue. We instantly match you with 5-10 driven builders on your exact wavelength, so you can start shipping code from day one.
               </p>
             </div>
           </motion.div>
@@ -547,8 +550,8 @@ export default function Home() {
           >
             <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-500 to-transparent group-hover:opacity-40 transition-opacity duration-500"></div>
             <div className="relative z-10 max-w-xl">
-              <h3 className="font-brand text-3xl font-bold mb-4">The 24-Month Game.</h3>
-              <p className="text-blue-100 text-lg leading-relaxed">
+              <h3 className="font-brand text-2xl md:text-3xl font-bold mb-4">The 3-Month Game.</h3>
+              <p className="text-blue-100 text-base md:text-lg leading-relaxed">
                 Commit to the journey. When you finish, your track record unlocks the Alumni Network, where you hand-pick your next founding team.
               </p>
             </div>
@@ -556,54 +559,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Wall of Ambition ─────────────────────────────────────────────────── */}
-      <section className="bg-[#FAFAFA] py-32 border-t border-slate-200 overflow-hidden">
+      {/* ── The Part Nobody Talks About ─────────────────────────────────────────────────── */}
+      <section className="bg-[#FAFAFA] py-20 md:py-32 border-t border-slate-200 overflow-hidden">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7 }}
-            className="text-center mb-24 flex flex-col items-center justify-center"
+            className="text-center mb-16 md:mb-24 flex flex-col items-center justify-center"
           >
-            <h2 className="font-brand text-5xl md:text-7xl font-bold tracking-tight text-[#111111] flex items-center gap-4 flex-wrap justify-center">
-              Why builders{" "}
-              <svg className="w-12 h-12 md:w-16 md:h-16" viewBox="0 0 24 24" fill="url(#gradientHeart)">
-                <defs>
-                  <linearGradient id="gradientHeart" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#F08A4B" />
-                    <stop offset="100%" stopColor="#16857B" />
-                  </linearGradient>
-                </defs>
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-              Guild
+            <h2 className="font-brand text-4xl md:text-7xl font-bold tracking-tight text-[#111111] flex items-center gap-4 flex-wrap justify-center">
+              The part nobody talks about.
             </h2>
             <p className="text-xl text-slate-500 mt-6 max-w-2xl">
-              We haven't even launched Cohort 1 yet. Here is what early applicants are saying about the end of solo-learning.
+              Learning alone has a cost. Here is what it actually feels like.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm text-slate-400 font-mono border border-slate-200 px-3 py-1 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>
-              Source: Pre-launch waitlist applicants
-            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 items-start">
             {/* Column 1 */}
             <div className="flex flex-col gap-4 lg:gap-5">
               {[
-                { text: "\"The isolation of self-taught programming is brutal. Required daily commits with a pod of serious developers sounds incredibly motivating.\"", name: "Justin Wilkerson", role: "Waitlist #402 • Software Developer", color: "bg-blue-50 text-blue-700" },
-                { text: "\"I've tried building side projects with friends, but without a dedicated manager or real structure, it always fizzles out after the first weekend. The idea of Kairos AI acting as a neutral manager to enforce daily accountability, while being drafted into a committed team of 5-10 builders, is exactly what I need. I'm so ready for this.\"", name: "Cole Bemis", role: "Waitlist #12 • @GitHub", color: "bg-slate-900 text-white" },
-                { text: "\"I just need a team.\"", name: "Rohit Sharma", role: "Waitlist #118 • Front-End Developer", color: "bg-orange-100 text-orange-700" },
-                { text: "\"I can follow a guide perfectly, but when I try to build something from scratch, I freeze. I'm joining to finally experience a real team structure and escape tutorial-hell.\"", name: "James Armenta", role: "Waitlist #45 • Software Engineer", color: "bg-slate-100 text-slate-900" },
-                { text: "\"Just drafted my application.\"", name: "Kevin L.", role: "Waitlist #512 • Beginner Track", color: "bg-emerald-50 text-emerald-700" },
+                { bold: "You restart the same tutorial every two weeks.", explanation: "Not because you forgot it. Because without anyone watching, there was no reason to finish." },
+                { bold: "You can study for 12 hours one day and disappear for two weeks.", explanation: "Streaks without structure are not streaks. They are bursts followed by guilt." },
+                { bold: "The Discord server had 4000 members. You spoke to zero of them.", explanation: "Communities exist everywhere. Committed teams exist almost nowhere." },
+                { bold: "You told yourself you would start seriously next Monday.", explanation: "It has been eleven Mondays." },
               ].map((t, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: i * 0.08 }} whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm cursor-default">
-                  <p className="text-[#111111] text-xl font-medium leading-snug mb-5">{t.text}</p>
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full ${t.color} flex items-center justify-center font-bold font-brand text-sm`}>{t.name[0]}</div>
-                    <div>
-                      <h4 className="font-semibold text-slate-900 text-sm">{t.name}</h4>
-                      <p className="text-slate-500 text-xs">{t.role}</p>
-                    </div>
-                  </div>
+                  <p className="text-[#111111] text-xl font-bold leading-snug mb-3">{t.bold}</p>
+                  <p className="text-slate-600 text-base">{t.explanation}</p>
                 </motion.div>
               ))}
             </div>
@@ -611,21 +593,13 @@ export default function Home() {
             {/* Column 2 – offset down */}
             <div className="flex flex-col gap-4 lg:gap-5 md:mt-20">
               {[
-                { text: "\"Most learning platforms sell you content, but there's a million free videos on YouTube for that. What we actually need is accountability and real-world reps. Guild is the first thing that looks like it solves the actual problem instead of just selling more content.\"", name: "Herminio Garcia", role: "Waitlist #67 • Software Engineer", color: "bg-red-100 text-red-700" },
-                { text: "\"Finally, an end to tutorial hell.\"", name: "Ananya Gupta", role: "Waitlist #204 • Full-Stack Engineer", color: "bg-indigo-100 text-indigo-700" },
-                { text: "\"Tech meetups are practically non-existent in my city. I signed up to find my tribe and finally build alongside ambitious people.\"", name: "Aditya Verma", role: "Waitlist #184 • Self-Taught Dev", color: "bg-teal-100 text-teal-700" },
-                { text: "\"I'm tired of 'networking' on LinkedIn and pretending to be a thought leader. I just want to write good code, deal with messy merge conflicts, and build real products with smart people.\"", name: "Rahul Mehta", role: "Waitlist #441 • Backend Engineer", color: "bg-rose-100 text-rose-700" },
-                { text: "\"Certificates are dead. I need a real commit history.\"", name: "Priya Patel", role: "Waitlist #03 • Founding Engineer", color: "bg-slate-100 text-slate-900" },
+                { bold: "You have 14 bookmarked courses and zero completions.", explanation: "Collecting resources feels like progress. It is not." },
+                { bold: "You are intermediate at five things and expert at none.", explanation: "Without a committed direction and people holding you to it, learning scatters." },
+                { bold: "You got stuck. You had nobody to ask. You moved on and never came back.", explanation: "The moment you stop is rarely dramatic. It is just silence with no one to break it." },
               ].map((t, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }} whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm cursor-default">
-                  <p className="text-[#111111] text-xl font-medium leading-snug mb-5">{t.text}</p>
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full ${t.color} flex items-center justify-center font-bold font-brand text-sm`}>{t.name[0]}</div>
-                    <div>
-                      <h4 className="font-semibold text-slate-900 text-sm">{t.name}</h4>
-                      <p className="text-slate-500 text-xs">{t.role}</p>
-                    </div>
-                  </div>
+                  <p className="text-[#111111] text-xl font-bold leading-snug mb-3">{t.bold}</p>
+                  <p className="text-slate-600 text-base">{t.explanation}</p>
                 </motion.div>
               ))}
             </div>
@@ -633,30 +607,37 @@ export default function Home() {
             {/* Column 3 – offset down slightly */}
             <div className="flex flex-col gap-4 lg:gap-5 md:mt-10">
               {[
-                { text: "\"Accountability as a service.\"", name: "Max Gustafson", role: "Waitlist #22 • Design Director", color: "bg-purple-50 text-purple-700" },
-                { text: "\"Consistency is my biggest flaw. I can code for 12 hours straight one day, and then not touch my keyboard for a week. I need daily accountability.\"", name: "Alex Chen", role: "Waitlist #89 • Full-Stack Engineer", color: "bg-teal-50 text-teal-700" },
-                { text: "\"Working a 9-to-5 leaves me drained. By the time I sit down at my laptop, I have decision fatigue and end up doing nothing. I signed up because I need a structured environment that tells me exactly what the sprint goal is so I can just sit down and execute.\"", name: "Stacy Taylor", role: "Waitlist #134 • Front-End Engineer", color: "bg-pink-50 text-pink-700" },
-                { text: "\"I'm here for the 24-month game.\"", name: "Neha Desai", role: "Waitlist #301 • React Developer", color: "bg-cyan-100 text-cyan-700" },
-                { text: "\"Traditional bootcamps are $15k and they basically just give you a curriculum you could have googled. I'm on the waitlist for Guild because it feels like the exact opposite: focusing entirely on the reps, the team dynamics, and the daily habit of pushing code.\"", name: "Vikram Singh", role: "Waitlist #88 • iOS Developer", color: "bg-yellow-100 text-yellow-700" },
+                { bold: "Your friends think what you are building is cool. They just do not care enough to check in tomorrow.", explanation: "Encouragement is easy. Accountability is rare." },
+                { bold: "You know what to learn. You just cannot make yourself do it alone.", explanation: "This is not a willpower problem. It is a people problem." },
+                { bold: "You finished the course. You built nothing.", explanation: "Consuming is not building. Building alone is not shipping. Shipping needs a team." },
               ].map((t, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }} whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm cursor-default">
-                  <p className="text-[#111111] text-xl font-medium leading-snug mb-5">{t.text}</p>
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full ${t.color} flex items-center justify-center font-bold font-brand text-sm`}>{t.name[0]}</div>
-                    <div>
-                      <h4 className="font-semibold text-slate-900 text-sm">{t.name}</h4>
-                      <p className="text-slate-500 text-xs">{t.role}</p>
-                    </div>
-                  </div>
+                  <p className="text-[#111111] text-xl font-bold leading-snug mb-3">{t.bold}</p>
+                  <p className="text-slate-600 text-base">{t.explanation}</p>
                 </motion.div>
               ))}
             </div>
           </div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7 }}
+            className="text-center mt-24 flex flex-col items-center justify-center"
+          >
+            <p className="text-xl text-slate-500 mb-8 max-w-2xl font-medium">
+              Guild was built for the moment after this one.
+            </p>
+            <a
+              href="#apply"
+              className="font-brand tracking-wide bg-slate-900 text-white px-10 py-4 rounded-md text-base font-semibold hover:bg-slate-800 transition-all shadow-[0_8px_20px_rgb(0,0,0,0.25)] hover:-translate-y-0.5 inline-block"
+            >
+              Join Waitlist
+            </a>
+          </motion.div>
         </div>
       </section>
 
       {/* ── FAQ Section ──────────────────────────────────────────────────────── */}
-      <section id="faq" className="relative bg-[#0A0A0A] text-white py-32 overflow-hidden border-t border-white/10 mt-12">
+      <section id="faq" className="relative bg-[#0A0A0A] text-white py-20 md:py-32 overflow-hidden border-t border-white/10 mt-12">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <motion.div
@@ -668,7 +649,7 @@ export default function Home() {
           </motion.div>
 
           <div className="space-y-4">
-            <FaqItem delay={0.1} q="What is the actual time commitment?" a="Guild is not a weekend hackathon. You are committing to a 6 to 24-month journey. Expect to spend a minimum of 1-2 hours daily on tasks assigned by Kairos, plus participation in twice-weekly pod standups." />
+            <FaqItem delay={0.1} q="What is the actual time commitment?" a="Guild is not a weekend hackathon. You are committing to a 3-month journey. Expect to spend a minimum of 1-2 hours daily on tasks assigned by Kairos, plus participation in twice-weekly pod standups." />
             <FaqItem delay={0.2} q="How does the Draft work?" a="During onboarding, we analyze your skill level, timezone, and ultimate goals. We then manually assemble highly complementary pods of 5-10 people. We intentionally pair absolute beginners with intermediate developers to enforce a culture of mentorship." />
             <FaqItem delay={0.3} q="What exactly does Kairos (the AI) do?" a="Kairos is your pod's dedicated manager. It doesn't just answer coding questions; it monitors team momentum, assigns the daily technical requirements, tracks who is falling behind, and organizes your shared workspace." />
             <FaqItem delay={0.4} q="What happens when I finish?" a="Graduation unlocks the Alumni Network. Your daily commits, peer reviews, and consistency over the months become a verifiable track record. You can use this reputation to recruit a highly vetted co-founder or join an early-stage startup team." />
@@ -754,47 +735,68 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Group 2: The Builder */}
+                {/* Group 2: YOUR CRAFT */}
                 <div>
-                  <h3 className="text-[#F08A4B] font-mono text-sm uppercase tracking-widest mb-8 border-b border-white/10 pb-4">02. The Builder</h3>
+                  <h3 className="text-[#F08A4B] font-mono text-sm uppercase tracking-widest mb-8 border-b border-white/10 pb-4">02. YOUR CRAFT</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
                     <div className="relative group">
-                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">Technical Skill Level</label>
+                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">WHERE ARE YOU RIGHT NOW</label>
                       <select required defaultValue="" className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer">
                         <option value="" disabled className="text-slate-900">Select your level...</option>
-                        <option value="beginner" className="text-slate-900">Absolute Beginner</option>
-                        <option value="intermediate" className="text-slate-900">Intermediate</option>
-                        <option value="advanced" className="text-slate-900">Advanced / Expert</option>
+                        <option value="Just starting out" className="text-slate-900">Just starting out</option>
+                        <option value="I know the basics" className="text-slate-900">I know the basics</option>
+                        <option value="I can build projects" className="text-slate-900">I can build projects</option>
+                        <option value="I'm close to professional level" className="text-slate-900">I'm close to professional level</option>
                       </select>
                     </div>
                     <div className="relative group">
-                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">Personal Commitment</label>
+                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">HOW MUCH TIME CAN YOU GIVE</label>
                       <select required defaultValue="" className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer">
                         <option value="" disabled className="text-slate-900">I can commit daily for...</option>
-                        <option value="6" className="text-slate-900">6 Months</option>
-                        <option value="12" className="text-slate-900">12 Months</option>
-                        <option value="18" className="text-slate-900">18 Months</option>
-                        <option value="24" className="text-slate-900">24 Months (Alumni Track)</option>
+                        <option value="30 minutes a day" className="text-slate-900">30 minutes a day</option>
+                        <option value="1 hour a day" className="text-slate-900">1 hour a day</option>
+                        <option value="2+ hours a day" className="text-slate-900">2+ hours a day</option>
+                        <option value="It depends on the week" className="text-slate-900">It depends on the week</option>
                       </select>
                     </div>
                     <div className="relative group md:col-span-2">
-                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">Current Project or Startup</label>
-                      <input type="text" placeholder="What are you currently trying to build or master?" required className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700" />
+                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">WHAT ARE YOU TRYING TO BUILD OR LEARN</label>
+                      <input type="text" placeholder="Describe the skill, project, startup, or goal you want to commit to during this sprint." required className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700" />
+                    </div>
+                    <div className="relative group md:col-span-2">
+                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">CHOOSE YOUR CRAFTS</label>
+                      <div className="flex flex-wrap gap-3">
+                        {[
+                          "🤖 Artificial Intelligence",
+                          "💻 Web Development",
+                          "🐍 Programming (Python & DSA)",
+                          "📱 Mobile App Development",
+                          "🎨 UI/UX & Product Design",
+                          "Machine Learning"
+                        ].map((craft, i) => (
+                          <label key={i} className="cursor-pointer">
+                            <input type="checkbox" value={craft} className="peer hidden" />
+                            <div className="px-5 py-2.5 rounded-full border border-white/20 bg-transparent text-slate-300 text-sm font-medium transition-all peer-checked:bg-[#FDFBF7] peer-checked:border-[#FDFBF7] peer-checked:text-[#111111] hover:border-white/40">
+                              {craft}
+                            </div>
+                          </label>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Group 3: The Vision */}
+                {/* Group 3: THE REAL QUESTION */}
                 <div>
-                  <h3 className="text-[#9933FF] font-mono text-sm uppercase tracking-widest mb-8 border-b border-white/10 pb-4">03. The Vision</h3>
+                  <h3 className="text-[#9933FF] font-mono text-sm uppercase tracking-widest mb-8 border-b border-white/10 pb-4">03. THE REAL QUESTION</h3>
                   <div className="grid grid-cols-1 gap-12">
                     <div className="relative group">
-                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">Help us calibrate the platform</label>
-                      <textarea placeholder="In your opinion, what should Guild's absolute minimum and maximum commitment period be, and why?" required rows={2} className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"></textarea>
+                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">BE HONEST WITH US</label>
+                      <textarea placeholder="What has stopped you from staying consistent with learning before? Be specific." required rows={2} className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"></textarea>
                     </div>
                     <div className="relative group">
-                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">What problem brings you here today?</label>
-                      <textarea placeholder="Why are you choosing to join this waitlist instead of taking a standard solo course?" required rows={2} className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"></textarea>
+                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">WHY A POD AND NOT SOLO</label>
+                      <textarea placeholder="What made you choose Guild over just doing this alone or taking another course?" required rows={2} className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"></textarea>
                     </div>
                   </div>
                 </div>
@@ -822,7 +824,7 @@ export default function Home() {
       <footer className="bg-[#1C1C1A] text-[#FDFBF7] py-20 md:py-32 rounded-t-[3rem] mt-12 shadow-[0_-20px_60px_rgba(0,0,0,0.05)] relative z-20">
         <div className="max-w-7xl mx-auto px-6">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 lg:gap-8 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-24">
 
             {/* Brand & Dispatch – spans 2 cols */}
             <div className="lg:col-span-2 flex flex-col justify-between">
@@ -847,23 +849,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Product links */}
-            <div className="lg:pl-8">
-              <h4 className="text-white font-brand font-bold text-lg mb-8">Product</h4>
-              <ul className="space-y-5 text-slate-400 text-base font-medium">
-                {["The Draft", "Kairos AI Manager", "Peer Mentorship", "Alumni Network", "Waitlist Pricing"].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">{item}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {/* Resources links */}
-            <div>
+            <div className="lg:pl-8">
               <h4 className="text-white font-brand font-bold text-lg mb-8">Resources</h4>
               <ul className="space-y-5 text-slate-400 text-base font-medium">
-                {["The Working Model", "Pod Guidelines", "Waitlist FAQ", "System Status"].map((item) => (
+                {["Waitlist FAQ"].map((item) => (
                   <li key={item}>
                     <a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">{item}</a>
                   </li>
@@ -875,7 +865,7 @@ export default function Home() {
             <div>
               <h4 className="text-white font-brand font-bold text-lg mb-8">Company</h4>
               <ul className="space-y-5 text-slate-400 text-base font-medium">
-                {["Manifesto", "About Us", "Careers", "Contact"].map((item) => (
+                {["Manifesto", "Contact"].map((item) => (
                   <li key={item}>
                     <a href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">{item}</a>
                   </li>
@@ -897,15 +887,15 @@ export default function Home() {
             {/* Social icons */}
             <div className="flex items-center gap-6 text-slate-500">
               {/* Twitter / X */}
-              <a href="#" className="hover:text-white hover:-translate-y-1 transition-all duration-300" aria-label="Twitter">
+              <a href="https://x.com/km_mikey90617" className="hover:text-white hover:-translate-y-1 transition-all duration-300" aria-label="Twitter">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.26 5.631 5.904-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
-              {/* GitHub */}
-              <a href="#" className="hover:text-white hover:-translate-y-1 transition-all duration-300" aria-label="GitHub">
+              {/* LinkedIn */}
+              <a href="https://www.linkedin.com/in/the-guild-1aba3939b/" className="hover:text-white hover:-translate-y-1 transition-all duration-300" aria-label="LinkedIn">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </a>
             </div>
