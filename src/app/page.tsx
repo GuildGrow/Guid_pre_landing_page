@@ -66,6 +66,13 @@ export default function Home() {
   const [submitting, setSubmitting] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [countryError, setCountryError] = useState(false);
+  const [skillLevelError, setSkillLevelError] = useState(false);
+  const [dailyCommitmentError, setDailyCommitmentError] = useState(false);
+  const [whatBuildingError, setWhatBuildingError] = useState(false);
+  const [craftsError, setCraftsError] = useState(false);
+  const [stoppedBeforeError, setStoppedBeforeError] = useState(false);
+  const [whyPodError, setWhyPodError] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
@@ -80,24 +87,24 @@ export default function Home() {
 
     let isValid = true;
 
-    if (!fullName.trim()) {
-      setNameError(true);
-      isValid = false;
-    } else {
-      setNameError(false);
-    }
+    if (!fullName.trim()) { setNameError(true); isValid = false; } else { setNameError(false); }
 
-    if (!email.trim()) {
-      setEmailError("Please enter a valid email");
-      isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError("Please enter a valid email");
-      isValid = false;
-    } else {
-      setEmailError("");
-    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError("Please enter a valid email"); isValid = false;
+    } else { setEmailError(""); }
 
-    if (!isValid) return;
+    if (!countryTimezone.trim()) { setCountryError(true); isValid = false; } else { setCountryError(false); }
+    if (!skillLevel) { setSkillLevelError(true); isValid = false; } else { setSkillLevelError(false); }
+    if (!dailyCommitment) { setDailyCommitmentError(true); isValid = false; } else { setDailyCommitmentError(false); }
+    if (!whatBuilding.trim()) { setWhatBuildingError(true); isValid = false; } else { setWhatBuildingError(false); }
+    if (selectedCrafts.length === 0) { setCraftsError(true); isValid = false; } else { setCraftsError(false); }
+    if (!stoppedBefore.trim()) { setStoppedBeforeError(true); isValid = false; } else { setStoppedBeforeError(false); }
+    if (!whyPodNotSolo.trim()) { setWhyPodError(true); isValid = false; } else { setWhyPodError(false); }
+
+    if (!isValid) {
+      setSubmitError("Please fill in all fields before submitting.");
+      return;
+    }
 
     setSubmitting(true);
 
@@ -848,9 +855,10 @@ export default function Home() {
                         placeholder="Where are you building from? (e.g., London, GMT)"
                         required
                         value={countryTimezone}
-                        onChange={(e) => setCountryTimezone(e.target.value)}
-                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700"
+                        onChange={(e) => { setCountryTimezone(e.target.value); if (countryError) setCountryError(false); }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors placeholder:text-slate-700 ${countryError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"}`}
                       />
+                      {countryError && <p className="text-red-500 text-xs mt-2 font-mono">This field is required</p>}
                     </div>
                   </div>
                 </div>
@@ -864,8 +872,8 @@ export default function Home() {
                       <select
                         required
                         value={skillLevel}
-                        onChange={(e) => setSkillLevel(e.target.value)}
-                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer"
+                        onChange={(e) => { setSkillLevel(e.target.value); if (skillLevelError) setSkillLevelError(false); }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors appearance-none cursor-pointer ${skillLevelError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"}`}
                       >
                         <option value="" disabled className="text-slate-900">Select your level...</option>
                         <option value="Just starting out" className="text-slate-900">Just starting out</option>
@@ -873,14 +881,15 @@ export default function Home() {
                         <option value="I can build projects" className="text-slate-900">I can build projects</option>
                         <option value="I'm close to professional level" className="text-slate-900">I'm close to professional level</option>
                       </select>
+                      {skillLevelError && <p className="text-red-500 text-xs mt-2 font-mono">Please select your level</p>}
                     </div>
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">HOW MUCH TIME CAN YOU GIVE</label>
                       <select
                         required
                         value={dailyCommitment}
-                        onChange={(e) => setDailyCommitment(e.target.value)}
-                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer"
+                        onChange={(e) => { setDailyCommitment(e.target.value); if (dailyCommitmentError) setDailyCommitmentError(false); }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors appearance-none cursor-pointer ${dailyCommitmentError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"}`}
                       >
                         <option value="" disabled className="text-slate-900">I can commit daily for...</option>
                         <option value="30 minutes a day" className="text-slate-900">30 minutes a day</option>
@@ -888,6 +897,7 @@ export default function Home() {
                         <option value="2+ hours a day" className="text-slate-900">2+ hours a day</option>
                         <option value="It depends on the week" className="text-slate-900">It depends on the week</option>
                       </select>
+                      {dailyCommitmentError && <p className="text-red-500 text-xs mt-2 font-mono">Please select your commitment</p>}
                     </div>
                     <div className="relative group md:col-span-2">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">WHAT ARE YOU TRYING TO BUILD OR LEARN</label>
@@ -896,12 +906,13 @@ export default function Home() {
                         placeholder="Describe the skill, project, startup, or goal you want to commit to during this sprint."
                         required
                         value={whatBuilding}
-                        onChange={(e) => setWhatBuilding(e.target.value)}
-                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700"
+                        onChange={(e) => { setWhatBuilding(e.target.value); if (whatBuildingError) setWhatBuildingError(false); }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors placeholder:text-slate-700 ${whatBuildingError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"}`}
                       />
+                      {whatBuildingError && <p className="text-red-500 text-xs mt-2 font-mono">This field is required</p>}
                     </div>
                     <div className="relative group md:col-span-2">
-                      <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">CHOOSE YOUR CRAFTS</label>
+                      <label className={`block text-xs font-mono uppercase tracking-widest mb-4 ${craftsError ? "text-red-500" : "text-slate-500"}`}>CHOOSE YOUR CRAFTS {craftsError && "— pick at least one"}</label>
                       <div className="flex flex-wrap gap-3">
                         {[
                           "🤖 AI & Machine Learning",
@@ -948,9 +959,10 @@ export default function Home() {
                         required
                         rows={2}
                         value={stoppedBefore}
-                        onChange={(e) => setStoppedBefore(e.target.value)}
-                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"
+                        onChange={(e) => { setStoppedBefore(e.target.value); if (stoppedBeforeError) setStoppedBeforeError(false); }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors placeholder:text-slate-700 resize-none ${stoppedBeforeError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"}`}
                       ></textarea>
+                      {stoppedBeforeError && <p className="text-red-500 text-xs mt-2 font-mono">This field is required</p>}
                     </div>
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">WHY A POD AND NOT SOLO</label>
@@ -959,9 +971,10 @@ export default function Home() {
                         required
                         rows={2}
                         value={whyPodNotSolo}
-                        onChange={(e) => setWhyPodNotSolo(e.target.value)}
-                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"
+                        onChange={(e) => { setWhyPodNotSolo(e.target.value); if (whyPodError) setWhyPodError(false); }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors placeholder:text-slate-700 resize-none ${whyPodError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"}`}
                       ></textarea>
+                      {whyPodError && <p className="text-red-500 text-xs mt-2 font-mono">This field is required</p>}
                     </div>
                   </div>
                 </div>
