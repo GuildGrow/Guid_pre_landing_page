@@ -44,10 +44,29 @@ function FaqItem({ q, a, delay }: { q: string; a: string; delay: number }) {
   );
 }
 
+import { supabase } from "../lib/supabase";
+
 // ─── Main Page ───────────────────────────────────────────────────────────────
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Form states
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [countryTimezone, setCountryTimezone] = useState("");
+  const [skillLevel, setSkillLevel] = useState("");
+  const [dailyCommitment, setDailyCommitment] = useState("");
+  const [whatBuilding, setWhatBuilding] = useState("");
+  const [selectedCrafts, setSelectedCrafts] = useState<string[]>([]);
+  const [stoppedBefore, setStoppedBefore] = useState("");
+  const [whyPodNotSolo, setWhyPodNotSolo] = useState("");
+
+  // Validation / Loading / Error states
+  const [submitting, setSubmitting] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -55,9 +74,64 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitError("");
+
+    let isValid = true;
+
+    if (!fullName.trim()) {
+      setNameError(true);
+      isValid = false;
+    } else {
+      setNameError(false);
+    }
+
+    if (!email.trim()) {
+      setEmailError("Please enter a valid email");
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError("Please enter a valid email");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!isValid) return;
+
+    setSubmitting(true);
+
+    try {
+      const waitlistEntry = {
+        full_name: fullName,
+        email: email,
+        country_timezone: countryTimezone,
+        skill_level: skillLevel,
+        daily_commitment: dailyCommitment,
+        what_building: whatBuilding,
+        crafts: selectedCrafts,
+        stopped_before: stoppedBefore,
+        why_pod_not_solo: whyPodNotSolo
+      };
+
+      const { error } = await supabase
+        .from("waitlist")
+        .insert([waitlistEntry]);
+
+      if (error) {
+        console.error("Submission error:", error);
+        setSubmitError("Something went wrong. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Submission error:", err);
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -715,6 +789,7 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
                 className="relative z-10 space-y-16"
                 onSubmit={handleSubmit}
+                noValidate
               >
                 {/* Group 1: Identity */}
                 <div>
@@ -722,15 +797,49 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">Full Name</label>
-                      <input type="text" placeholder="Satoshi Nakamoto" required className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700" />
+                      <input
+                        type="text"
+                        placeholder="Satoshi Nakamoto"
+                        required
+                        value={fullName}
+                        onChange={(e) => {
+                          setFullName(e.target.value);
+                          if (nameError) setNameError(false);
+                        }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors placeholder:text-slate-700 ${
+                          nameError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"
+                        }`}
+                      />
                     </div>
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">Email Address</label>
-                      <input type="email" placeholder="name@domain.com" required className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700" />
+                      <input
+                        type="email"
+                        placeholder="name@domain.com"
+                        required
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (emailError) setEmailError("");
+                        }}
+                        className={`w-full bg-transparent border-b text-xl text-white pb-3 focus:outline-none transition-colors placeholder:text-slate-700 ${
+                          emailError ? "border-red-500 focus:border-red-500" : "border-white/20 focus:border-[#FDFBF7]"
+                        }`}
+                      />
+                      {emailError && (
+                        <p className="text-red-500 text-xs mt-2 font-mono">{emailError}</p>
+                      )}
                     </div>
                     <div className="relative group md:col-span-2">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">Country / Timezone</label>
-                      <input type="text" placeholder="Where are you building from? (e.g., London, GMT)" required className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700" />
+                      <input
+                        type="text"
+                        placeholder="Where are you building from? (e.g., London, GMT)"
+                        required
+                        value={countryTimezone}
+                        onChange={(e) => setCountryTimezone(e.target.value)}
+                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700"
+                      />
                     </div>
                   </div>
                 </div>
@@ -741,7 +850,12 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">WHERE ARE YOU RIGHT NOW</label>
-                      <select required defaultValue="" className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer">
+                      <select
+                        required
+                        value={skillLevel}
+                        onChange={(e) => setSkillLevel(e.target.value)}
+                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer"
+                      >
                         <option value="" disabled className="text-slate-900">Select your level...</option>
                         <option value="Just starting out" className="text-slate-900">Just starting out</option>
                         <option value="I know the basics" className="text-slate-900">I know the basics</option>
@@ -751,7 +865,12 @@ export default function Home() {
                     </div>
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">HOW MUCH TIME CAN YOU GIVE</label>
-                      <select required defaultValue="" className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer">
+                      <select
+                        required
+                        value={dailyCommitment}
+                        onChange={(e) => setDailyCommitment(e.target.value)}
+                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors appearance-none cursor-pointer"
+                      >
                         <option value="" disabled className="text-slate-900">I can commit daily for...</option>
                         <option value="30 minutes a day" className="text-slate-900">30 minutes a day</option>
                         <option value="1 hour a day" className="text-slate-900">1 hour a day</option>
@@ -761,21 +880,42 @@ export default function Home() {
                     </div>
                     <div className="relative group md:col-span-2">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-2">WHAT ARE YOU TRYING TO BUILD OR LEARN</label>
-                      <input type="text" placeholder="Describe the skill, project, startup, or goal you want to commit to during this sprint." required className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700" />
+                      <input
+                        type="text"
+                        placeholder="Describe the skill, project, startup, or goal you want to commit to during this sprint."
+                        required
+                        value={whatBuilding}
+                        onChange={(e) => setWhatBuilding(e.target.value)}
+                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700"
+                      />
                     </div>
                     <div className="relative group md:col-span-2">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">CHOOSE YOUR CRAFTS</label>
                       <div className="flex flex-wrap gap-3">
                         {[
-                          "🤖 Artificial Intelligence",
+                          "🤖 AI & Machine Learning",
                           "💻 Web Development",
-                          "🐍 Programming (Python & DSA)",
+                          "🐍 Programming & DSA",
                           "📱 Mobile App Development",
                           "🎨 UI/UX & Product Design",
-                          "Machine Learning"
+                          "🔐 Cybersecurity",
+                          "📊 Data Science",
+                          "☁️ DevOps & Cloud"
                         ].map((craft, i) => (
                           <label key={i} className="cursor-pointer">
-                            <input type="checkbox" value={craft} className="peer hidden" />
+                            <input
+                              type="checkbox"
+                              value={craft}
+                              checked={selectedCrafts.includes(craft)}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setSelectedCrafts([...selectedCrafts, craft]);
+                                } else {
+                                  setSelectedCrafts(selectedCrafts.filter((c) => c !== craft));
+                                }
+                              }}
+                              className="peer hidden"
+                            />
                             <div className="px-5 py-2.5 rounded-full border border-white/20 bg-transparent text-slate-300 text-sm font-medium transition-all peer-checked:bg-[#FDFBF7] peer-checked:border-[#FDFBF7] peer-checked:text-[#111111] hover:border-white/40">
                               {craft}
                             </div>
@@ -792,25 +932,46 @@ export default function Home() {
                   <div className="grid grid-cols-1 gap-12">
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">BE HONEST WITH US</label>
-                      <textarea placeholder="What has stopped you from staying consistent with learning before? Be specific." required rows={2} className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"></textarea>
+                      <textarea
+                        placeholder="What has stopped you from staying consistent with learning before? Be specific."
+                        required
+                        rows={2}
+                        value={stoppedBefore}
+                        onChange={(e) => setStoppedBefore(e.target.value)}
+                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"
+                      ></textarea>
                     </div>
                     <div className="relative group">
                       <label className="block text-xs text-slate-500 font-mono uppercase tracking-widest mb-4">WHY A POD AND NOT SOLO</label>
-                      <textarea placeholder="What made you choose Guild over just doing this alone or taking another course?" required rows={2} className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"></textarea>
+                      <textarea
+                        placeholder="What made you choose Guild over just doing this alone or taking another course?"
+                        required
+                        rows={2}
+                        value={whyPodNotSolo}
+                        onChange={(e) => setWhyPodNotSolo(e.target.value)}
+                        className="w-full bg-transparent border-b border-white/20 text-xl text-white pb-3 focus:outline-none focus:border-[#FDFBF7] transition-colors placeholder:text-slate-700 resize-none"
+                      ></textarea>
                     </div>
                   </div>
                 </div>
 
                 {/* Submit */}
                 <div className="pt-8 flex flex-col items-center">
+                  {submitError && (
+                    <p className="text-red-500 text-sm mb-6 font-mono text-center">{submitError}</p>
+                  )}
                   <div className="flex items-center gap-3 mb-8">
                     <input type="checkbox" required id="terms" className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#F08A4B] focus:ring-[#F08A4B] focus:ring-offset-0 focus:ring-1 cursor-pointer" />
                     <label htmlFor="terms" className="text-sm text-slate-400 cursor-pointer">
                       I agree to the <a href="/terms" className="text-[#F08A4B] font-medium hover:underline">Terms of Service</a> and acknowledge the daily commitment.
                     </label>
                   </div>
-                  <button type="submit" className="font-editorial italic text-2xl tracking-wide bg-[#FDFBF7] text-[#1C1C1A] px-12 py-5 rounded-full font-bold hover:scale-105 transition-transform duration-300 shadow-[0_10px_40px_rgba(253,251,247,0.15)]">
-                    Submit Application
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="font-editorial italic text-2xl tracking-wide bg-[#FDFBF7] text-[#1C1C1A] px-12 py-5 rounded-full font-bold hover:scale-105 transition-transform duration-300 shadow-[0_10px_40px_rgba(253,251,247,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {submitting ? "Submitting..." : "Submit Application"}
                   </button>
                   <p className="text-slate-500 text-xs font-mono mt-6">By submitting, you agree to Kairos AI profiling for pod assembly.</p>
                 </div>
