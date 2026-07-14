@@ -120,7 +120,7 @@ export default function Home() {
 
       if (error) {
         console.error("Submission error:", error);
-        setSubmitError("Something went wrong. Please try again.");
+        setSubmitError(`Submission error: ${error.message || JSON.stringify(error)} (${error.details || 'no details'})`);
         setSubmitting(false);
         return;
       }
