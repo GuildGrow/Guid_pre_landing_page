@@ -119,7 +119,7 @@ export default function Home() {
         .insert([waitlistEntry]);
 
       if (error) {
-        console.error("Submission error:", error);
+        console.warn("Submission error:", error);
         setSubmitError(`Submission error: ${error.message || JSON.stringify(error)} (${error.details || 'no details'})`);
         setSubmitting(false);
         return;
@@ -127,7 +127,7 @@ export default function Home() {
 
       setSubmitted(true);
     } catch (err) {
-      console.error("Submission error:", err);
+      console.warn("Submission error:", err);
       setSubmitError("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
