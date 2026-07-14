@@ -127,7 +127,11 @@ export default function Home() {
 
       if (error) {
         console.warn("Submission error:", error);
-        setSubmitError(`Submission error: ${error.message || JSON.stringify(error)} (${error.details || 'no details'})`);
+        if (error.message?.includes("duplicate key") || error.code === "23505") {
+          setSubmitError("You're already on the waitlist! We'll be in touch when your pod is ready.");
+        } else {
+          setSubmitError("Something went wrong. Please try again.");
+        }
         setSubmitting(false);
         return;
       }
