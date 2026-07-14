@@ -114,6 +114,13 @@ export default function Home() {
         why_pod_not_solo: whyPodNotSolo
       };
 
+      if (!supabase) {
+        console.warn("Supabase client is not initialized.");
+        setSubmitError("Database connection is not configured. Please check environment variables.");
+        setSubmitting(false);
+        return;
+      }
+
       const { error } = await supabase
         .from("waitlist")
         .insert([waitlistEntry]);
